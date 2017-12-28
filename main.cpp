@@ -54,29 +54,29 @@ namespace CPUDetect
 
 		uint32_t ecx = abcd[2];
 
-		if ((edx >> 25) & 1)
-			instr = Instr::SSE;
+		if ((edx >> 25) & 1 == 0) return instr;
+		instr = Instr::SSE;
 
-		if ((edx >> 26) & 1)
-			instr = Instr::SSE2;
+		if ((edx >> 26) & 1 == 0) return instr;
+		instr = Instr::SSE2;
 
-		if ((ecx >> 0) & 1);
-			instr = Instr::SSE3;
+		if ((ecx >> 0) & 1 == 0) return instr;
+		instr = Instr::SSE3;
 
-		if ((ecx >> 19) & 1);
-			instr = Instr::SSE4_1;
+		if ((ecx >> 19) & 1 == 0) return instr;
+		instr = Instr::SSE4_1;
 
-		if ((ecx >> 20) & 1);
-			instr = Instr::SSE4_2;
+		if ((ecx >> 20) & 1 == 0) return instr;
+		instr = Instr::SSE4_2;
 
-		if ((ecx >> 28) & 1);
-			instr = Instr::AVX;
+		if ((ecx >> 28) & 1 == 0) return instr;
+		instr = Instr::AVX;
 
 		cpuid(7, 0, abcd);
 
 		uint32_t ebx = abcd[1];
-		if ((ebx >> 5) & 1)
-			instr = Instr::AVX2;
+		if ((ebx >> 5) & 1 == 0) return instr;
+		instr = Instr::AVX2;
 
 		return instr;
 	}
